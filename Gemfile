@@ -34,7 +34,7 @@ gem 'angular-rails-templates'
 gem 'responders', '~> 2.0'
 gem 'rails-html-sanitizer'
 gem 'feedlr' # For feedly API requests
-gem 'devise' # For user authentication
+gem 'devise', '3.5.9' # For user authentication
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
