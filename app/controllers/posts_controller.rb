@@ -1,0 +1,37 @@
+class PostsController < ApplicationController
+	before_filter :authenticate_user!, only: [:create, :upvote]
+	protect_from_forgery with: :exception
+	respond_to :html, :xml, :json
+
+	def index
+		posts = Post.all.sort_by(&:published_at).reverse
+		respond_with posts, include: :source
+	end
+
+	def create
+	  respond_with Post.create(post_params)
+	end
+
+	def show
+	  respond_with Post.find(params[:id])
+	end
+
+	def upvote
+	  post = Post.find(params[:id])
+	  post.increment!(:upvotes)
+
+	  respond_with post
+	end
+
+	def increment_views
+	  post = Post.find(params[:id])
+	  post.increment!(:views)
+
+	  respond_with post
+	end
+
+	private
+	def post_params
+	  params.require(:post).permit(:link, :title)
+	end
+end
