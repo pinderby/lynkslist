@@ -13,6 +13,7 @@ group :assets do
   gem 'sass-rails', '~> 5.0' # Use SCSS for stylesheets
   gem 'coffee-rails', '~> 4.1.0' # Use CoffeeScript for .coffee assets and views
   gem 'uglifier', '>= 1.3.0' # Use Uglifier as compressor for JavaScript assets
+  gem 'turbo-sprockets-rails3'
 end
 
 
@@ -27,8 +28,6 @@ group :doc do
 	gem 'sdoc', '~> 0.4.0'
 end
 
-gem 'turbo-sprockets-rails3'
-
 gem "bower-rails", "~> 0.10.0"
 gem 'angular_rails_csrf'
 gem 'angular-rails-templates'
@@ -36,7 +35,6 @@ gem 'responders', '~> 2.0'
 gem 'rails-html-sanitizer'
 gem 'feedlr' # For feedly API requests
 gem 'devise' # For user authentication
-gem 'mysql2'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
