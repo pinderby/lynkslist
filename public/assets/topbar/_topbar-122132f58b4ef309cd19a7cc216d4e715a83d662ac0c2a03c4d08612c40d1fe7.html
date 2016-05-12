@@ -1,0 +1,30 @@
+<div class="topbar">
+	<a href="/" target="_self">All</a>
+	- 
+	<a href="/l/news" target="_self">News</a>
+	- 
+	<a href="/l/sports" target="_self">Sports</a>
+	- 
+	<a href="/l/tech" target="_self">Tech</a>
+	- 
+	<a href="/l/entertainment" target="_self">Entertainment</a>
+	- 
+	<a href="/l/tv-movies" target="_self">TV/Movies</a>
+	- 
+	<a href="/l/games" target="_self">Games</a>
+	- 
+	<a href="/l/music" target="_self">Music</a>
+	- 
+	<a href="/l/business" target="_self">Business</a>
+	- 
+	<a href="/more">More...</a>
+
+  	<div class="collapse navbar-collapse pull-right" ng-controller="TopbarCtrl">
+      	<a href="#/register" class="signup-btn btn btn-primary btn-lg" ng-hide="signedIn()" role="button">Sign up</a>
+      	<a href="#/login" class="login-btn btn btn-default btn-lg" role="button" ng-hide="signedIn()">Log in</a>
+	<ul class="nav navbar-nav">
+		<li ng-show="signedIn()"><a href="#/">{{ user.username }}</a></li>
+		<li ng-show="signedIn()"><a ng-click="logout()">Log Out</a></li>
+	</ul>
+	</div>
+</div>

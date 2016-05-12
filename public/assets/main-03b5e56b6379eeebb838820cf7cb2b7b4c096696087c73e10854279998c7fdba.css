@@ -1,0 +1,268 @@
+/* app css stylesheet */
+
+
+body {
+  padding-top: 20px;
+}
+
+/* The Overlay (background) */
+.overlay {
+    /* Height & width depends on how you want to reveal the overlay (see JS below) */    
+    height: 100%;
+    width: 90%;
+    position: fixed; /* Stay in place */
+    z-index: 5; /* Sit on top */
+    left: 100%;
+    top: 0;
+    background-color: rgb(0,0,0); /* Black fallback color */
+    background-color: rgba(0,0,0, 0.9); /* Black w/opacity */
+    overflow-x: hidden; /* Disable horizontal scroll */
+    transition: 0.5s; /* 0.5 second transition effect to slide in or slide down the overlay (height or width, depending on reveal) */
+}
+
+/* Position the content inside the overlay */
+.overlay-content {
+    position: relative;
+    width: 100%; /* 100% width */
+    height: 100%;
+    text-align: center; /* Centered text/links */
+}
+
+#iframe-btn-container {
+	top: 0;
+    background-color: #141823;
+    z-index: 6;
+    left: 100%;
+    position: fixed;
+    width: 50px;
+    height: 50px;
+
+}
+
+#article-iframe-close-btn {
+    display: fixed;
+    top: -25px;
+    left: 5px;
+    height: 50px;
+    width: 50px;
+}
+
+#article-iframe-close-btn:hover, 
+#article-iframe-close-btn:focus {
+	color: #2a6496;
+	text-decoration: none;
+
+}
+
+#article-iframe {
+	position: relative;
+    width: 70%;
+    height: 100%;
+    left: -10%;
+    z-index: 6;
+
+}
+
+.related_posts_container {
+	right: 0%;
+    top: 0%;
+    position: absolute;
+    background-color: white;
+    width: 25%;
+    height: 100%;
+    z-index: 5;
+}
+
+/* The navigation links inside the overlay */
+.overlay a {
+    padding: 8px;
+    text-decoration: none;
+    font-size: 36px;
+    color: #818181;
+    display: block; /* Display block instead of inline */
+    transition: 0.3s; /* Transition effects on hover (color) */
+}
+
+/* When you mouse over the navigation links, change their color */
+.overlay a:hover, .overlay a:focus {
+    color: #f1f1f1;
+}
+
+/* Position the close button (top right corner) */
+.closebtn {
+    position: absolute;
+    top: -15px;
+    left: 5px;
+    font-size: 60px !important; /* Override the font-size specified earlier (36px) for all navigation links */
+}
+
+/* When the height of the screen is less than 450 pixels, change the font-size of the links and position the close button again, so they don't overlap */
+@media screen and (max-height: 450px) {
+    .overlay a {font-size: 20px}
+    .closebtn {
+        font-size: 40px !important;
+        top: 15px;
+        right: 35px;
+    }
+}
+
+.related_posts_header {
+	color: #2a6496;
+    text-decoration: underline;
+    font-size: 18px;
+}
+
+.logo-typography {
+	width: 200px;
+    margin-left: -15px;
+    margin-top: -10px;
+}
+
+.left-side-btn {
+	width: 100%;
+	margin-bottom: 10px;
+}
+
+.topbar {
+	margin: 5px 0 20px 10px;
+}
+
+.signup-btn {
+	padding-right: 25px;
+    padding-left: 25px;
+    margin-right: 30px;
+    float: right;
+}
+
+.login-btn {
+	color: #337ab7;
+	padding-right: 30px;
+    padding-left: 30px;
+    margin-right: 15px;
+    float: right;
+}
+
+.search_bar {
+	margin: 40px 10px 10px 10px;
+    display: inline-block;
+}
+
+.search_bar input {
+    width: 80% !important;
+}
+
+#route {
+    visibility: hidden;
+}
+
+div.post_container {
+    width: 100%;
+	padding-left: 0px;
+}
+
+.votes_container {
+	display: inline-block;
+    float: left;
+    width: 75px;
+    margin-top: 15px;
+}
+
+span.upvote {
+	margin-left: 1.5px;
+}
+
+span.upvote, span.downvote {
+	font-size: 2em;
+	width: 100%;
+	text-align: center;
+}
+
+.vote_points {
+	text-align: center;
+    color: #428bca;
+    font-size: 1.5em;
+}
+
+.post_stat {
+	margin-right: 10px;
+	font-size: .9em;
+	color: #428bca;
+}
+
+.post_stat:hover, .post_stat:focus {
+    text-decoration: none;
+}
+
+.post_stat > span.glyphicon {
+    margin-right: 3px;
+}
+
+.post-link-btn {
+	margin-top: 15px;
+}
+
+.content_feed_container {
+	padding-top: 10px;
+    margin-bottom: 20px;
+}
+
+.thumbnail_container {
+	width: 100px;
+	height: 100px;
+    margin-top: 15px;
+	overflow: hidden;
+	float: left;
+	display: inline-block;
+	position: relative;
+
+}
+
+.thumbnail {
+/*    position: absolute;
+    margin: auto;
+    min-height: 100%;
+    min-width: 100%;*/
+	width: 100px;
+	height: 100px;
+	margin-right: 10px;
+	background-position: center center;
+	background-repeat: no-repeat;
+	object-position: center; /* Center the image within the element */
+	object-fit: cover;
+}
+
+
+.content_container {
+	display: inline-block;
+	float: left;
+}
+
+.content_title {
+	display: inline-block;
+}
+
+.content_summary {
+	display: inline-block;
+}
+
+.publisher_container {
+    padding-top: 5px;
+	width: 100%;
+    display: block;
+    float: left;
+}
+
+.publisher_img {
+	width: 25px;
+	height: 25px;
+	display: inline-block;
+	float: left;
+	margin-right: 3px;
+}
+
+.publisher_name {
+	display: inline-block;
+	float: left;
+    margin-top: 2.5px;
+	margin-left: 5px !important;
+}
