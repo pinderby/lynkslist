@@ -30,6 +30,14 @@ class PostsController < ApplicationController
 	  respond_with post
 	end
 
+	def save_post
+	  post = Post.find(params[:id])
+	  
+	end
+
+	def unsave_post
+	end
+
 	private
 	def post_params
 	  params.require(:post).permit(:link, :title)

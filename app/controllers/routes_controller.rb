@@ -21,7 +21,7 @@ class RoutesController < ApplicationController
 	client = Feedlr::Client.new
 	sanitizer = Rails::Html::FullSanitizer.new
 	feed_json = client.stream_entries_contents("feed/http://feeds.feedburner.com/Techcrunch")
-	# list = List.find_by name: "tech"
+	list = List.find_by name: "tech"
 	feed_json.items.each do |item|
 		post = (Post.find_by title: item.title) ? (Post.find_by title: item.title) : Post.new
 		post.title = item.title
@@ -30,13 +30,13 @@ class RoutesController < ApplicationController
 		post.content_type = "article"
 		post.published_at = Time.at(item.published/1000).to_datetime
 		post.img_url = item.key?("thumbnail") ? item.thumbnail[1].url.split('?')[0]+"?w=200&h=200&crop=1" : ""
-		# post.source = Source.find_by name: "TechCrunch"
-		# list.posts << post
+		post.source = Source.find_by name: "TechCrunch"
+		list.posts << post
 		post.save
 	end
 
 	feed_json = client.stream_entries_contents("feed/http://rss.cnn.com/rss/cnn_topstories.rss")
-	# list = List.find_by name: "news"
+	list = List.find_by name: "news"
 	feed_json.items.each do |item|
 		post = (Post.find_by title: item.title) ? (Post.find_by title: item.title) : Post.new
 		post.title = item.title
@@ -45,13 +45,13 @@ class RoutesController < ApplicationController
 		post.content_type = "article"
 		post.published_at = Time.at(item.published/1000).to_datetime
 		post.img_url = item.key?("thumbnail") ? item.thumbnail[0].url : ""
-		# post.source = Source.find_by name: "CNN"
-		# list.posts << post
+		post.source = Source.find_by name: "CNN"
+		list.posts << post
 		post.save
 	end
 
 	feed_json = client.stream_entries_contents("feed/http://www.nytimes.com/services/xml/rss/nyt/HomePage.xml")
-	# list = List.find_by name: "news"
+	list = List.find_by name: "news"
 	feed_json.items.each do |item|
 		post = (Post.find_by title: item.title) ? (Post.find_by title: item.title) : Post.new
 		post.title = item.title
@@ -60,13 +60,13 @@ class RoutesController < ApplicationController
 		post.content_type = "article"
 		post.published_at = Time.at(item.published/1000).to_datetime
 		post.img_url = item.key?("thumbnail") ? item.thumbnail[0].url : ""
-		# post.source = Source.find_by name: "NYTimes"
-		# list.posts << post
+		post.source = Source.find_by name: "NYTimes"
+		list.posts << post
 		post.save
 	end
 
 	feed_json = client.stream_entries_contents("feed/http://newsrss.bbc.co.uk/rss/newsonline_world_edition/front_page/rss.xml")
-	# list = List.find_by name: "news"
+	list = List.find_by name: "news"
 	feed_json.items.each do |item|
 		post = (Post.find_by title: item.title) ? (Post.find_by title: item.title) : Post.new
 		post.title = item.title
@@ -75,8 +75,8 @@ class RoutesController < ApplicationController
 		post.content_type = "article"
 		post.published_at = Time.at(item.published/1000).to_datetime
 		post.img_url = item.key?("thumbnail") ? item.thumbnail[0].url : ""
-		# post.source = Source.find_by name: "BBC"
-		# list.posts << post
+		post.source = Source.find_by name: "BBC"
+		list.posts << post
 		post.save
 	end
 
