@@ -20,7 +20,7 @@
       <p class="content_summary">{{post.summary}}</p>
       <div class="post_stats_container">
         <a class="post_stat"><span class="views glyphicon glyphicon-eye-open" aria-hidden="true" style=""></span>{{post.views + 0}}</a>
-        <a class="post_stat"><span class="saves glyphicon glyphicon-bookmark" aria-hidden="true" style=""></span>{{post.saves + 0}}</a>
+        <a class="post_stat" ng-click="savePost($event, post)"><span class="saves glyphicon glyphicon-bookmark" aria-hidden="true" style=""></span>{{post.saves.length + 0}}</a>
         <!-- <a class="post_stat"><span class="shares  glyphicon glyphicon-share-alt" aria-hidden="true" style=""></span>{{post.shares + 0}}</a>
         <a class="post_stat"><span class="comments glyphicon glyphicon-comment" aria-hidden="true" style=""></span>128</a> -->
       </div>

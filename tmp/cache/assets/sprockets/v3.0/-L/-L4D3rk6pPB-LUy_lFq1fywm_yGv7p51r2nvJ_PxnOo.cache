@@ -1,31 +1,0 @@
-{:uriI"Éfile://app/assets/javascripts/main/_main.html?type=text/ng-html&id=6787e535cfc1ac755107ee2edbe5695cca2f4516047824e82f6fa4aed185fc81:ET:load_pathI"app/assets/javascripts;T:filenameI"+app/assets/javascripts/main/_main.html;T:	nameI"main/_main;T:logical_pathI"main/_main.html;T:content_typeI"text/ng-html;T:sourceI"&<div class="content_feed_container" ng-repeat="entry in entries">
-  <div class="post_container container">
-    <div class="votes_container">
-      <div class="upvote_container"><a><span class="upvote glyphicon glyphicon-chevron-up" aria-hidden="true" style=""></span></a></div>
-      <div class="vote_points">120</div>
-      <div class="downvote_container"><a><span class="downvote glyphicon glyphicon-chevron-down" aria-hidden="true" style=""></span></a></div>
-      
-    </div>
-    <div class="thumbnail_container">
-      <img class="thumbnail" ng-src="{{entry.enclosure[0].href}}">
-    </div>
-    <div class="content_container col-sm-7">
-      <a class="content_title" href="" ng-click="openLink(entry.canonicalUrl)"><span>{{entry.title}}</span></a>
-      <div class="publisher_container">
-        <img class="publisher_img" ng-src="{{entry.origin.imgUrl}}">
-        <p class="publisher_name">@{{entry.origin.title}}</p>
-      </div>
-      <p class="content_summary">{{entry.summary.content}}</p>
-      <div class="post_stats_container">
-        <a class="post_stat"><span class="views glyphicon glyphicon-eye-open" aria-hidden="true" style="">14,934</span></a>
-        <a class="post_stat"><span class="saves glyphicon glyphicon-bookmark" aria-hidden="true" style="">7,129</span></a>
-        <a class="post_stat"><span class="shares  glyphicon glyphicon-share-alt" aria-hidden="true" style="">523</span></a>
-        <a class="post_stat"><span class="comments glyphicon glyphicon-comment" aria-hidden="true" style="">128</span></a>
-      </div>
-    </div>
-  </div>
-</div>;T:metadata{	:dependencieso:Set:
-@hash}
-I"environment-version;TTI"environment-paths;TTI"rails-env;TTI"8processors:type=text/ng-html&file_type=text/ng-html;TTI"9file-digest://app/assets/javascripts/main/_main.html;TTF:charsetI"
-utf-8;F:digest"%¿KŒî_4Û∞!èπÂy?ÿ3Fá∑i Bû4K4‡Ÿy:lengthi&:dependencies_digest"%08?˙◊HS‹¿∑q#„‰çB/©/áá ∞–z7ıÎG:idI"E6787e535cfc1ac755107ee2edbe5695cca2f4516047824e82f6fa4aed185fc81;F:
-mtimel++W

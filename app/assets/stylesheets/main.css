@@ -188,6 +188,12 @@ span.upvote, span.downvote {
 	color: #428bca;
 }
 
+.post_stat.active {
+    margin-right: 10px;
+    font-size: .9em;
+    color: #f48024; /* orange */
+}
+
 .post_stat:hover, .post_stat:focus {
     text-decoration: none;
 }

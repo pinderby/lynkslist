@@ -25,6 +25,18 @@ lynkslistApp.config([
 					}]
 				}
 			})
+			.state('saved_posts', {
+				url: '/saved_posts',
+				templateUrl: 'main/_main.html',
+				controller: 'ContentCtrl',
+				resolve: {
+					postPromise: ['posts', 'Auth', function(posts, Auth){
+						Auth.currentUser().then(function (user){
+							return posts.getSavedPosts(user.id);
+						});
+					}]
+				}
+			})
 			.state('login', {
 		    	url: '/login',
 		    	templateUrl: 'auth/_login.html',

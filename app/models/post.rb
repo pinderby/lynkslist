@@ -1,6 +1,7 @@
 class Post < ActiveRecord::Base
 	has_and_belongs_to_many :lists
-	has_many :users, :through => :saves
+	has_many :saving_users, source: :user, :through => :saves
+	has_many :saves, class_name: "Save"
 	belongs_to :source
 
 	def self.eliminate_duplicates

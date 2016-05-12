@@ -17,6 +17,13 @@ class RoutesController < ApplicationController
     render 'layouts/application'
   end
 
+  def show_saved_posts
+  	@params = Hash.new
+  	@params[:name] = "saved_posts"
+  	@params[:model] = "user"
+    render 'layouts/application'
+  end
+
   def refresh
 	client = Feedlr::Client.new
 	sanitizer = Rails::Html::FullSanitizer.new

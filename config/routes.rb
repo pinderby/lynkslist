@@ -11,6 +11,14 @@ Rails.application.routes.draw do
     member do
       put '/upvote' => 'posts#upvote'
       put '/increment_views' => 'posts#increment_views'
+      put '/save_post' => 'posts#save_post'
+      put '/unsave_post' => 'posts#unsave_post'
+    end
+  end
+
+  resources :users do
+    member do
+      get '/saved_posts' => 'users#saved_posts'
     end
   end
 

@@ -1,7 +1,21 @@
 angular.module('lynkslistApp')
-    .controller('ContentCtrl', ['$scope', '$http', '$state', '$stateParams', 'posts', 
-            function($scope, $http, $state, $stateParams, posts) {
-        
+    .controller('ContentCtrl', ['$scope', '$http', '$state', '$stateParams', 'Auth', 'posts', 
+            function($scope, $http, $state, $stateParams, Auth, posts) {
+
+        Auth.currentUser().then(function (user){
+            $http.get('/users/' + user.id + '.json').success( function(response) {
+                $scope.user = response;
+            });
+        });
+
+        contains = function(a, obj) {
+            for (var i = 0; i < a.length; i++) {
+                if (a[i] === obj) {
+                    return true;
+                }
+            }
+            return false;
+        }
 
         if($('#route').data("model") == "list") {
             var name = $('#route').data("name");
@@ -15,7 +29,7 @@ angular.module('lynkslistApp')
         $scope.openLink = function(post) {
             $scope.articleUrl = post.canonical_url;
             $('#article-iframe').attr('src', post.canonical_url);
-            posts.increment_views(post);
+            posts.incrementViews(post);
             document.getElementById("myNav").style.left = "10%";
             document.getElementById("iframe-btn-container").style.left = "10%";
         }
@@ -29,12 +43,34 @@ angular.module('lynkslistApp')
         $scope.refresh = function() {
             // TODO --DM-- Add loading overlay while it's loading
             $http.get('/refresh').success( function(response) {
-                $scope.posts = response; 
+                $scope.posts = response;
             });
+        }
+
+        $scope.showSavedPosts = function() {
+            // TODO --DM-- Add loading overlay while it's loading
+            console.log($state);
+            $state.go('saved_posts', {}, {reload: true});
+            console.log('showSavedPosts');
         }
 
         $scope.incrementUpvotes = function(post) {
           posts.upvote(post);
         };
+
+        $scope.savePost = function($event, post) {
+            console.log($event);
+            console.log(post);
+            console.log($scope.user);
+            var post_saved = contains($scope.user.saved_posts, post);
+            if (post_saved) {
+                // posts.savePost($event, post, $scope.user);
+                
+            } else {
+                // posts.unsavePost($event, post, $scope.user);
+            }
+            
+        };
+
 
     }]);
