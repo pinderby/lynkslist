@@ -1,33 +1,0 @@
-{:uriI"ƒfile://app/assets/javascripts/main/_main.html?type=text/ng-html&id=36bdebb5b85af224fb21578ca7277eda3d59869e3048a692c36a4146105335e6:ET:load_pathI"app/assets/javascripts;T:filenameI"+app/assets/javascripts/main/_main.html;T:	nameI"main/_main;T:logical_pathI"main/_main.html;T:content_typeI"text/ng-html;T:sourceI"e<div class="container col-md-12">
-  <button type="button" class="btn btn-primary btn-lg" ng-click="refresh()"><span class="glyphicon glyphicon-refresh" aria-hidden="true" style="margin-right: 3px;"></span></button>
-</div>
-<div class="content_feed_container" ng-repeat="post in posts">
-  <div class="post_container container">
-    <div class="votes_container">
-      <div class="upvote_container"><a ng-click="incrementUpvotes(post)"><span class="upvote glyphicon glyphicon-chevron-up" aria-hidden="true" style=""></span></a></div>
-      <div class="vote_points">{{post.upvotes - post.downvotes}}</div>
-      <div class="downvote_container"><a><span class="downvote glyphicon glyphicon-chevron-down" aria-hidden="true" style=""></span></a></div>
-    </div>
-    <div class="thumbnail_container" ng-if="post.img_url">
-      <img class="thumbnail" ng-src="{{post.img_url}}">
-    </div>
-    <div class="content_container col-sm-9">
-      <a class="content_title" href="" ng-click="openLink(post)"><span>{{post.title}}</span></a></br>
-      <div class="publisher_container">
-        <img class="publisher_img" ng-src="{{post.source.profile_url}}">
-        <p class="publisher_name">@{{post.source.name}}</p>
-      </div>
-      <p class="content_summary">{{post.summary}}</p>
-      <div class="post_stats_container">
-        <a class="post_stat"><span class="views glyphicon glyphicon-eye-open" aria-hidden="true" style=""></span>{{post.views + 0}}</a>
-        <a class="post_stat"><span class="saves glyphicon glyphicon-bookmark" aria-hidden="true" style=""></span>{{post.saves + 0}}</a>
-        <!-- <a class="post_stat"><span class="shares  glyphicon glyphicon-share-alt" aria-hidden="true" style=""></span>{{post.shares + 0}}</a>
-        <a class="post_stat"><span class="comments glyphicon glyphicon-comment" aria-hidden="true" style=""></span>128</a> -->
-      </div>
-    </div>
-  </div>
-</div>;T:metadata{	:dependencieso:Set:
-@hash}
-I"environment-version;TTI"environment-paths;TTI"rails-env;TTI"8processors:type=text/ng-html&file_type=text/ng-html;TTI"9file-digest://app/assets/javascripts/main/_main.html;TTF:charsetI"
-utf-8;F:digest"%CeIožÌY®*V[9<6ºÏ9EGñ“qô‚öÁíDuø:lengthie:dependencies_digest"%ÕˆwŒ=ju´ó¿‚qÃ5SÛŸ¼átìæÀ¹7	°:idI"E36bdebb5b85af224fb21578ca7277eda3d59869e3048a692c36a4146105335e6;F:
-mtimel+Úf0W
