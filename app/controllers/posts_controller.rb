@@ -34,9 +34,12 @@ class PostsController < ApplicationController
 	  @post = Post.find(params[:id])
 	  if current_user
 	  	current_user.saved_posts << @post
+	  	current_user.saved_posts.uniq!
+
+	  	render json: current_user.saved_posts, status: :ok
 	  else
 	  	# TODO --DM-- send to login
-	  	render status: :unauthorized
+	  	render nothing: true, status: :unauthorized
 	  end
 	end
 
@@ -44,9 +47,11 @@ class PostsController < ApplicationController
 	  @post = Post.find(params[:id])
 	  if current_user
 	  	current_user.saved_posts.delete(@post)
+
+	  	render json: current_user.saved_posts, status: :ok
 	  else
 	  	# TODO --DM-- send to login
-	  	render status: :unauthorized
+	  	render nothing: true, status: :unauthorized
 	  end
 	end
 

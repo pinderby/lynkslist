@@ -65,16 +65,12 @@ angular.module('lynkslistApp')
         };
 
         $scope.savePost = function($event, post) {
-            console.log($event);
-            console.log(post);
-            console.log(post.saved_by_user);
-            console.log($scope.user);
+            console.log($($event.target).parent('.post_stat'));
             var post_saved = contains($scope.user.saved_posts, post);
             if (post_saved) {
-                // posts.savePost($event, post, $scope.user);
-                
+                posts.unsavePost($event, post, $scope.user);
             } else {
-                // posts.unsavePost($event, post, $scope.user);
+                posts.savePost($event, post, $scope.user);
             }
             
         };

@@ -35,10 +35,25 @@ lynkslistServices.factory('posts', ['$http', function($http){
   };
 
   p.savePost = function($event, post, user) {
-  return $http.put('/posts/' + post.id + '/save_post')
-    .success(function(data){
-      $($event.target).addClass("active");;
-    });
+    return $http.put('/posts/' + post.id + '/save_post')
+      .success(function(data) {
+        var tag = $($event.target).parent('.post_stat');
+        tag.addClass("active");
+        var saveCount = tag.children('.save_count').text();
+        tag.children('.save_count').text(Number(saveCount)+1);
+        console.log(data);
+      });
+  };
+
+  p.unsavePost = function($event, post, user) {
+    return $http.put('/posts/' + post.id + '/unsave_post')
+      .success(function(data) {
+        var tag = $($event.target).parent('.post_stat');
+        tag.removeClass("active");
+        var saveCount = tag.children('.save_count').text();
+        tag.children('.save_count').text(Number(saveCount)-1);
+        console.log(data);
+      });
   };
 
   p.refreshPosts = function() {
