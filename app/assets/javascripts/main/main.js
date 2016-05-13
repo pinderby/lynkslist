@@ -2,15 +2,9 @@ angular.module('lynkslistApp')
     .controller('ContentCtrl', ['$scope', '$http', '$state', '$stateParams', 'Auth', 'posts', 
             function($scope, $http, $state, $stateParams, Auth, posts) {
 
-        Auth.currentUser().then(function (user){
-            $http.get('/users/' + user.id + '.json').success( function(response) {
-                $scope.user = response;
-            });
-        });
-
         contains = function(a, obj) {
             for (var i = 0; i < a.length; i++) {
-                if (a[i] === obj) {
+                if (a[i].id == obj.id) {
                     return true;
                 }
             }
@@ -25,6 +19,18 @@ angular.module('lynkslistApp')
         } else {
             $scope.posts = posts.posts;
         }
+
+        Auth.currentUser().then(function (user){
+            $http.get('/users/' + user.id + '.json').success( function(response) {
+                $scope.user = response;
+                for (var i = 0; i < $scope.posts.length; i++) {
+                    is_saved = contains($scope.user.saved_posts, $scope.posts[i]);
+                    $scope.posts[i].saved_by_user = is_saved;
+                }
+            });
+        });
+
+
 
         $scope.openLink = function(post) {
             $scope.articleUrl = post.canonical_url;
@@ -61,6 +67,7 @@ angular.module('lynkslistApp')
         $scope.savePost = function($event, post) {
             console.log($event);
             console.log(post);
+            console.log(post.saved_by_user);
             console.log($scope.user);
             var post_saved = contains($scope.user.saved_posts, post);
             if (post_saved) {

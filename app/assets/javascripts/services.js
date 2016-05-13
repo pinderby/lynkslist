@@ -9,14 +9,12 @@ lynkslistServices.factory('posts', ['$http', function($http){
     posts: []
   };
   p.getAll = function() {
-    console.log("getAll");
     return $http.get('/posts.json').success(function(data){
       angular.copy(data, p.posts);
     });
   };
 
   p.getSavedPosts = function(userId) {
-    console.log("getSavedPosts");
     return $http.get('/users/' + userId + '/saved_posts.json').success( function(response) {
       angular.copy(response, p.posts);
     });
