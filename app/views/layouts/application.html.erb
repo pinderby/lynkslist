@@ -7,9 +7,13 @@
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/jquery-ui.min.js' %>
   <%= csrf_meta_tags %>
+  <script src="dist/clipboard.min.js"></script>
 
 </head>
 <body ng-controller="ContentCtrl">
+  <script>
+    new Clipboard('.btn-clipboard');
+  </script>
   <!-- Button to close the overlay navigation -->
   <div id="iframe-btn-container">
     <a href="javascript:void(0)" id="article-iframe-close-btn" class="closebtn" ng-click="closeNav()">&times;</a>
@@ -41,9 +45,9 @@
       <button type="button" class="left-side-btn btn btn-link btn-lg" ng-click="showSavedPosts()">
       	<span class="glyphicon glyphicon-bookmark" aria-hidden="true" style="margin-right: 3px;"></span> Saved
       </button>
-      <button type="button" class="left-side-btn btn btn-link btn-lg">
+<!--       <button type="button" class="left-side-btn btn btn-link btn-lg">
       	<span class="glyphicon glyphicon-share-alt" aria-hidden="true" style="margin-right: 3px;"></span> Shared with me
-      </button>
+      </button> -->
       <button type="button" class="left-side-btn btn btn-link btn-lg">
       	<span class="glyphicon glyphicon-plus" aria-hidden="true" style="margin-right: 3px;"></span> Create a list
       </button>

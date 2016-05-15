@@ -30,26 +30,6 @@ class UsersController < ApplicationController
 	  respond_with @post
 	end
 
-	def save_post
-	  @post = Post.find(params[:id])
-	  if current_user
-	  	current_user.saved_posts << @post
-	  else
-	  	# TODO --DM-- send to login
-	  	render status: :unauthorized
-	  end
-	end
-
-	def unsave_post
-	  @post = Post.find(params[:id])
-	  if current_user
-	  	current_user.saved_posts.delete(@post)
-	  else
-	  	# TODO --DM-- send to login
-	  	render status: :unauthorized
-	  end
-	end
-
 	private
 	def post_params
 	  params.require(:post).permit(:link, :title)

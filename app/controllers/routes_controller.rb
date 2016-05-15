@@ -36,7 +36,7 @@ class RoutesController < ApplicationController
 		post.summary = item.key?("summary") ? sanitizer.sanitize(item.summary.content) : ""
 		post.content_type = "article"
 		post.published_at = Time.at(item.published/1000).to_datetime
-		post.img_url = item.key?("thumbnail") ? item.thumbnail[1].url.split('?')[0]+"?w=200&h=200&crop=1" : ""
+		post.img_url = (item.key?("thumbnail") && item.thumbnail[1]) ? item.thumbnail[1].url.split('?')[0]+"?w=200&h=200&crop=1" : ""
 		post.source = Source.find_by name: "TechCrunch"
 		list.posts << post
 		post.save
