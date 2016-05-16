@@ -4,8 +4,8 @@
 Rails.application.config.assets.version = '1.0'
 Rails.application.config.assets.precompile += [
 	'main.css',
-	'twitter/bootstrap/glyphicons-halflings.png',
-	'twitter/bootstrap/glyphicons-halflings-white.png'
+	'glyphicons-halflings.png',
+	'glyphicons-halflings-white.png'
 ]
 
 # Add additional assets to the asset load path
