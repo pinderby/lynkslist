@@ -28,6 +28,7 @@ group :doc do
 	gem 'sdoc', '~> 0.4.0'
 end
 
+gem 'bootstrap-sass', '~> 3.3.6'
 gem "bower-rails", "~> 0.10.0"
 gem 'angular_rails_csrf'
 gem 'angular-rails-templates'
