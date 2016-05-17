@@ -141,12 +141,6 @@ body {
     float: right;
 }
 
-.search_bar {
-    float: left !important;
-    display: block !important;
-    margin: 40px 10px 10px 10px;
-}
-
 .search_bar input {
     width: 80% !important;
 }
