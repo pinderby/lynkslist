@@ -142,9 +142,9 @@ body {
 }
 
 .search_bar {
-	margin: 40px 10px 10px 10px;
     float: left !important;
     display: block !important;
+    margin: 40px 10px 10px 10px;
 }
 
 .search_bar input {
