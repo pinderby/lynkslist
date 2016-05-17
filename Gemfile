@@ -29,7 +29,7 @@ group :doc do
 end
 
 gem 'bootstrap-sass', '~> 3.3.6'
-gem "bower-rails", "~> 0.10.0"
+gem 'bower-rails', "~> 0.10.0"
 gem 'angular_rails_csrf'
 gem 'angular-rails-templates'
 gem 'responders', '~> 2.0'

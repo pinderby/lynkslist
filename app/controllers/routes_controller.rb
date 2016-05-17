@@ -6,7 +6,7 @@ class RoutesController < ApplicationController
 
   def show_all
   	@params = Hash.new
-  	@params[:name] = "all"
+	@params[:name] = "all"
     render 'layouts/application'
   end
 
