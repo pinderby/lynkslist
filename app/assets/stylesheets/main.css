@@ -189,7 +189,7 @@ span.upvote, span.downvote {
 	color: #428bca;
 }
 
-.post_stat.active {
+.post_stat.active, .upvote.active, .downvote.active {
     margin-right: 10px;
     font-size: .9em;
     color: #f48024; /* orange */

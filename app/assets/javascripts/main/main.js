@@ -5,16 +5,22 @@ angular.module('lynkslistApp')
 
         if($('#route').data("model") == "list") {
             var name = $('#route').data("name");
-            $http.get('/lists/' + name + "/posts").success( function(response) {
-                $scope.posts = response; 
-            });
+            $scope.posts = PostsService.getListPosts(name);
         } else {
             $scope.posts = PostsService.posts;
         }
 
         for (var i = 0; i < $scope.posts.length; i++) {
+            // Calculate relative publish time for all posts
             $scope.posts[i].published_relative = 
                 moment($scope.posts[i].published_at).fromNow();
+
+            // Calculate vote points for all posts
+            if ($scope.posts[i].votes == null) return;
+            $scope.posts[i].points = 0;
+            for (var i2 = 0; i2 < $scope.posts[i].votes.length; i2++) {
+                $scope.posts[i].points += $scope.posts[i].votes[i2].value;
+            }
         }
 
         Auth.currentUser().then(function (user){
@@ -58,8 +64,16 @@ angular.module('lynkslistApp')
             console.log('showSavedPosts');
         }
 
-        $scope.incrementUpvotes = function(post) {
-          PostsService.upvote(post);
+        $scope.upvote = function(post) {
+          if (Auth.isAuthenticated()) {
+            PostsService.upvote(post.votes, post);
+          }
+        };
+
+        $scope.downvote = function(post) {
+          if (Auth.isAuthenticated()) {
+            PostsService.downvote(post);
+          }
         };
 
         $scope.savePost = function($event, post) {

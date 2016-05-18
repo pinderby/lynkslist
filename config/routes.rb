@@ -10,7 +10,9 @@ Rails.application.routes.draw do
   resources :posts do
     member do
       put '/upvote' => 'posts#upvote'
-      put '/increment_views' => 'posts#increment_views'
+      delete '/upvote' => 'posts#delete_upvote'
+      put '/downvote' => 'posts#downvote'
+      delete '/downvote' => 'posts#delete_downvote'
       put '/save_post' => 'posts#save_post'
       put '/unsave_post' => 'posts#unsave_post'
     end
