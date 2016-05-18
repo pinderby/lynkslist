@@ -112,13 +112,13 @@ body {
 }
 
 .logo-typography {
-	width: 200px;
-    margin-left: -15px;
-    margin-top: -10px;
+    width: 100%;
+    display: block;
 }
 
 .left-side-btn {
 	width: 100%;
+    margin-top: 5px;
 	margin-bottom: 10px;
 }
 
@@ -204,7 +204,7 @@ span.upvote, span.downvote {
 }
 
 .post-link-btn {
-	margin-top: 15px;
+	
 }
 
 .content_feed_container {

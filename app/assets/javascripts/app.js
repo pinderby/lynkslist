@@ -20,8 +20,8 @@ lynkslistApp.config([
 				templateUrl: 'main/_main.html',
 				controller: 'ContentCtrl',
 				resolve: {
-					postPromise: ['posts', function(posts){
-						return posts.getAll();
+					postPromise: ['PostsService', function(PostsService){
+						return PostsService.getAll();
 					}]
 				}
 			})
@@ -30,9 +30,9 @@ lynkslistApp.config([
 				templateUrl: 'main/_main.html',
 				controller: 'ContentCtrl',
 				resolve: {
-					postPromise: ['posts', 'Auth', function(posts, Auth){
+					postPromise: ['PostsService', 'Auth', function(PostsService, Auth){
 						Auth.currentUser().then(function (user){
-							return posts.getSavedPosts(user.id);
+							return PostsService.getSavedPosts(user.id);
 						});
 					}]
 				}

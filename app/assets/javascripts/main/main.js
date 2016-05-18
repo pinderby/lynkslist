@@ -1,15 +1,7 @@
 angular.module('lynkslistApp')
-    .controller('ContentCtrl', ['$scope', '$http', '$state', '$stateParams', 'Auth', 'posts', 
-            function($scope, $http, $state, $stateParams, Auth, posts) {
+    .controller('ContentCtrl', ['$scope', '$http', '$state', '$stateParams', 'Auth', 'PostsService', 
+            function($scope, $http, $state, $stateParams, Auth, PostsService) {
 
-        contains = function(a, obj) {
-            for (var i = 0; i < a.length; i++) {
-                if (a[i].id == obj.id) {
-                    return true;
-                }
-            }
-            return false;
-        }
 
         if($('#route').data("model") == "list") {
             var name = $('#route').data("name");
@@ -17,7 +9,7 @@ angular.module('lynkslistApp')
                 $scope.posts = response; 
             });
         } else {
-            $scope.posts = posts.posts;
+            $scope.posts = PostsService.posts;
         }
 
         for (var i = 0; i < $scope.posts.length; i++) {
@@ -28,8 +20,9 @@ angular.module('lynkslistApp')
         Auth.currentUser().then(function (user){
             $http.get('/users/' + user.id + '.json').success( function(response) {
                 $scope.user = response;
+                PostsService.saved_posts = $scope.user.saved_posts;
                 for (var i = 0; i < $scope.posts.length; i++) {
-                    is_saved = contains($scope.user.saved_posts, $scope.posts[i]);
+                    is_saved = PostsService.isSaved($scope.posts[i]);
                     $scope.posts[i].saved_by_user = is_saved;
                 }
             });
@@ -40,7 +33,7 @@ angular.module('lynkslistApp')
         $scope.openLink = function(post) {
             $scope.articleUrl = post.canonical_url;
             $('#article-iframe').attr('src', post.canonical_url);
-            posts.incrementViews(post);
+            PostsService.incrementViews(post);
             document.getElementById("myNav").style.left = "10%";
             document.getElementById("iframe-btn-container").style.left = "10%";
         }
@@ -66,18 +59,17 @@ angular.module('lynkslistApp')
         }
 
         $scope.incrementUpvotes = function(post) {
-          posts.upvote(post);
+          PostsService.upvote(post);
         };
 
         $scope.savePost = function($event, post) {
-            console.log($($event.target).parent('.post_stat'));
-            var post_saved = contains($scope.user.saved_posts, post);
-            if (post_saved) {
-                posts.unsavePost($event, post, $scope.user);
-            } else {
-                posts.savePost($event, post, $scope.user);
+            if (Auth.isAuthenticated()) {
+                if (PostsService.isSaved(post)) {
+                    PostsService.unsavePost($event, post, $scope.user);
+                } else {
+                    PostsService.savePost($event, post, $scope.user);
+                }
             }
-            
         };
 
 
