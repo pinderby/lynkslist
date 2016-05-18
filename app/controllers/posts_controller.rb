@@ -16,6 +16,13 @@ class PostsController < ApplicationController
 	  respond_with Post.find(params[:id])
 	end
 
+	def increment_views
+	  @post = Post.find(params[:id])
+	  @post.increment!(:views)
+
+	  respond_with @post
+	end
+
 	def upvote
 	  @post = Post.find(params[:id])
 	  if current_user

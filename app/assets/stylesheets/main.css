@@ -151,6 +151,11 @@ body {
     width: 80% !important;
 }
 
+.sort-select {
+    display: inline-block !important;
+    width: 150px !important;
+}
+
 #route {
     visibility: hidden;
 }

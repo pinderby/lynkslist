@@ -9,6 +9,7 @@ Rails.application.routes.draw do
 
   resources :posts do
     member do
+      put '/increment_views' => 'posts#increment_views'
       put '/upvote' => 'posts#upvote'
       delete '/upvote' => 'posts#delete_upvote'
       put '/downvote' => 'posts#downvote'

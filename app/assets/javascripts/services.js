@@ -100,8 +100,7 @@ lynkslistServices.factory('PostsService', ['$http', function($http){
         $('.downvote_'+post.id).removeClass("active");
 
         // Update vote count
-        var voteCount = $('.vote_points_'+post.id).text();
-        $('.vote_points_'+post.id).text(Number(voteCount)+voteAdjustment);
+        post.points += voteAdjustment;
 
         console.log(data);
 
@@ -131,8 +130,7 @@ lynkslistServices.factory('PostsService', ['$http', function($http){
         $('.downvote_'+post.id).removeClass("active");
 
         // Update vote count
-        var voteCount = $('.vote_points_'+post.id).text();
-        $('.vote_points_'+post.id).text(Number(voteCount)-1);
+        post.points -= 1;
 
         console.log(data);
 
@@ -184,8 +182,7 @@ lynkslistServices.factory('PostsService', ['$http', function($http){
         $('.upvote_'+post.id).removeClass("active");
 
         // Update vote count
-        var voteCount = $('.vote_points_'+post.id).text();
-        $('.vote_points_'+post.id).text(Number(voteCount)+voteAdjustment);
+        post.points += voteAdjustment;
 
         console.log(data);
 
@@ -215,8 +212,7 @@ lynkslistServices.factory('PostsService', ['$http', function($http){
         $('.upvote_'+post.id).removeClass("active");
 
         // Update vote count
-        var voteCount = $('.vote_points_'+post.id).text();
-        $('.vote_points_'+post.id).text(Number(voteCount)+1);
+        post.points += 1;
 
         console.log(data);
 

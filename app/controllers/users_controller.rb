@@ -23,13 +23,6 @@ class UsersController < ApplicationController
 	  end
 	end
 
-	def increment_views
-	  @post = Post.find(params[:id])
-	  @post.increment!(:views)
-
-	  respond_with @post
-	end
-
 	private
 	def post_params
 	  params.require(:post).permit(:link, :title)

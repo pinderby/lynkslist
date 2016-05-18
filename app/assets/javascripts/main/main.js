@@ -2,6 +2,7 @@ angular.module('lynkslistApp')
     .controller('ContentCtrl', ['$scope', '$http', '$state', '$stateParams', 'Auth', 'PostsService', 
             function($scope, $http, $state, $stateParams, Auth, PostsService) {
 
+        $scope.orderProp = '-published_at';
 
         if($('#route').data("model") == "list") {
             var name = $('#route').data("name");
