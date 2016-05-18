@@ -272,3 +272,9 @@ span.upvote, span.downvote {
     margin-top: 2.5px;
 	margin-left: 5px !important;
 }
+
+.published_time {
+    margin-left: 5px;
+    margin-top: 4px;
+    display: inline-block;
+}

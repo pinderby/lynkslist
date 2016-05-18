@@ -16,7 +16,8 @@
 //= require angular-devise
 //= require angular-rails-templates
 //= require angular-ui-router
-//= require clipboard
 //= require turbolinks
 //= require bootstrap-sprockets
+//= require clipboard
+//= require moment
 //= require_tree .

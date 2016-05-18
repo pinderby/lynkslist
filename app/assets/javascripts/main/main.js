@@ -20,6 +20,11 @@ angular.module('lynkslistApp')
             $scope.posts = posts.posts;
         }
 
+        for (var i = 0; i < $scope.posts.length; i++) {
+            $scope.posts[i].published_relative = 
+                moment($scope.posts[i].published_at).fromNow();
+        }
+
         Auth.currentUser().then(function (user){
             $http.get('/users/' + user.id + '.json').success( function(response) {
                 $scope.user = response;

@@ -1,4 +1,5 @@
 .rspec
+/.bundle
 /log
 /tmp
 /db/*.sqlite3
