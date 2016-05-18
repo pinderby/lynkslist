@@ -9,7 +9,7 @@ class UsersController < ApplicationController
 	end
 
 	def show
-	  respond_with User.find(params[:id]), include: :saved_posts
+	  respond_with User.find(params[:id]).to_json(include: [:saved_posts, :voted_posts, :votes])
 	end
 
 	def saved_posts

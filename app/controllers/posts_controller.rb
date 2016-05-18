@@ -5,7 +5,7 @@ class PostsController < ApplicationController
 
 	def index
 		@posts = Post.all.sort_by(&:published_at).reverse
-		respond_with @posts, include: :source
+		respond_with @posts.to_json(include: [:source, :votes])
 	end
 
 	def create

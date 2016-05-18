@@ -26,7 +26,7 @@
       <p class="content_summary">{{post.summary}}</p>
       <div class="post_stats_container">
         <a class="post_stat view_stat_{{post.id}}"><span class="views glyphicon glyphicon-eye-open" aria-hidden="true" style=""></span><span class="view_count_{{post.id}}">{{post.views + 0}}</span></a>
-        <a class="post_stat save_stat_{{post.id}}" ng-click="savePost($event, post)" ng-class="{active: post.saved_by_user}"><span class="saves glyphicon glyphicon-bookmark" aria-hidden="true" style=""></span><span class="save_count_{{post.id}}">{{post.saves.length + 0}}</span></a>
+        <a class="post_stat save_stat_{{post.id}}" ng-click="savePost($event, post)"><span class="saves glyphicon glyphicon-bookmark" aria-hidden="true" style=""></span><span class="save_count_{{post.id}}">{{post.saves.length + 0}}</span></a>
         <!-- TODO --DM-- commented until sharing and commenting is implemented -->
         <!-- <a class="post_stat"><span class="shares  glyphicon glyphicon-share-alt" aria-hidden="true" style=""></span>{{post.shares + 0}}</a>
         <a class="post_stat"><span class="comments glyphicon glyphicon-comment" aria-hidden="true" style=""></span>128</a> -->

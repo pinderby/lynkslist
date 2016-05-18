@@ -97,6 +97,7 @@ lynkslistServices.factory('PostsService', ['$http', function($http){
 
         // Make voted icon active
         $('.upvote_'+post.id).addClass("active");
+        $('.downvote_'+post.id).removeClass("active");
 
         // Update vote count
         var voteCount = $('.vote_points_'+post.id).text();
@@ -127,10 +128,95 @@ lynkslistServices.factory('PostsService', ['$http', function($http){
 
         // Make voted icon inactive
         $('.upvote_'+post.id).removeClass("active");
+        $('.downvote_'+post.id).removeClass("active");
 
         // Update vote count
         var voteCount = $('.vote_points_'+post.id).text();
         $('.vote_points_'+post.id).text(Number(voteCount)-1);
+
+        console.log(data);
+
+        // Reenable button
+        p.voting = false;
+
+        // Set current vote
+        p.currentVote = 0;
+    });
+  };
+
+  // Downvote post
+  p.downvote = function(votes, post) {
+    // Check whether to use local vote value or calculate
+    if (p.currentVote == 10) {
+      var voteValue = p.getVoteValue(votes, post);
+    } else { 
+      var voteValue = p.currentVote;
+    }
+
+    // Determine pathway based on vote value
+    if (voteValue == 1) {
+      p.sendDownvote(post, -2);
+    } else if (voteValue == 0) {
+      p.sendDownvote(post, -1);
+    } else if (voteValue == -1) {
+      p.deleteDownvote(post);
+    } else {
+      // Error
+      console.log("voteValue error: " + voteValue);
+    }
+  };
+
+  p.sendDownvote = function(post, voteAdjustment) {
+    // Return if another call is being made
+    if (p.voting) return;
+    
+    // Set voting to true to disable button while call is made
+    p.voting = true;
+
+    // Send PUT request to downvote post
+    return $http.put('/posts/' + post.id + '/downvote.json')
+      .success(function(data){
+        // Update voted_posts
+        p.voted_posts = data;
+
+        // Make voted icon active
+        $('.downvote_'+post.id).addClass("active");
+        $('.upvote_'+post.id).removeClass("active");
+
+        // Update vote count
+        var voteCount = $('.vote_points_'+post.id).text();
+        $('.vote_points_'+post.id).text(Number(voteCount)+voteAdjustment);
+
+        console.log(data);
+
+        // Reenable button
+        p.voting = false;
+
+        // Set current vote
+        p.currentVote = -1;
+    });
+  };
+
+  p.deleteDownvote = function(post) {
+    // Return if another call is being made
+    if (p.voting) return;
+    
+    // Set voting to true to disable button while call is made
+    p.voting = true;
+
+    // Send DELETE request to delete downvote from post
+    return $http.delete('/posts/' + post.id + '/downvote.json')
+      .success(function(data){
+        // Update voted_posts
+        p.voted_posts = data;
+
+        // Make voted icon inactive
+        $('.downvote_'+post.id).removeClass("active");
+        $('.upvote_'+post.id).removeClass("active");
+
+        // Update vote count
+        var voteCount = $('.vote_points_'+post.id).text();
+        $('.vote_points_'+post.id).text(Number(voteCount)+1);
 
         console.log(data);
 

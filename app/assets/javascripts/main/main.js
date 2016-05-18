@@ -26,10 +26,23 @@ angular.module('lynkslistApp')
         Auth.currentUser().then(function (user){
             $http.get('/users/' + user.id + '.json').success( function(response) {
                 $scope.user = response;
+
+                // Highlight all saved posts
                 PostsService.saved_posts = $scope.user.saved_posts;
-                for (var i = 0; i < $scope.posts.length; i++) {
-                    is_saved = PostsService.isSaved($scope.posts[i]);
-                    $scope.posts[i].saved_by_user = is_saved;
+                for (var i = 0; i < $scope.user.saved_posts.length; i++) {                    
+                    $('.save_stat_'+$scope.user.saved_posts[i].id).addClass('active');
+                }
+
+                // Highlight all votes
+                PostsService.voted_posts = $scope.user.voted_posts;
+                for (var i = 0; i < $scope.user.voted_posts.length; i++) { 
+                    if ($scope.user.votes[i].value == 1) {
+                        $('.upvote_'+$scope.user.voted_posts[i].id).addClass("active");
+                    } else if ($scope.user.votes[i].value == -1) {
+                        $('.downvote_'+$scope.user.voted_posts[i].id).addClass("active");
+                    } else {
+                        console.log('Vote error: ' + $scope.user.votes[i].value);
+                    }
                 }
             });
         });
@@ -72,7 +85,7 @@ angular.module('lynkslistApp')
 
         $scope.downvote = function(post) {
           if (Auth.isAuthenticated()) {
-            PostsService.downvote(post);
+            PostsService.downvote(post.votes, post);
           }
         };
 
