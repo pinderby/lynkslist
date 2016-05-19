@@ -73,14 +73,14 @@ body {
 }
 
 /* The navigation links inside the overlay */
-.overlay a {
+/*.overlay a {
     padding: 8px;
     text-decoration: none;
     font-size: 36px;
     color: #818181;
-    display: block; /* Display block instead of inline */
-    transition: 0.3s; /* Transition effects on hover (color) */
-}
+    display: block;
+    transition: 0.3s;
+}*/
 
 /* When you mouse over the navigation links, change their color */
 .overlay a:hover, .overlay a:focus {
@@ -109,6 +109,80 @@ body {
 	color: #2a6496;
     text-decoration: underline;
     font-size: 18px;
+}
+
+.related_posts_container {
+    overflow: auto;
+}
+
+.related_posts_container .thumbnail_container {
+    height: 50px;
+    width: 50px;
+    margin-right: 3px;
+}
+
+.related_posts_container .thumbnail {
+    padding: 0px;
+}
+
+.related_posts_container .votes_container {
+    width: 50px;
+    margin-top: 0px;
+}
+
+.related_posts_container span.upvote,
+.related_posts_container span.downvote,
+.related_posts_container .vote_points {
+    font-size: 1.2em;
+}
+
+.related_posts_container .content_title_container {
+    /*width: 150px;*/
+    display: block;
+    padding-left: 7px;
+}
+
+.related_posts_container .content_title {
+    font-size: 13px;
+    margin-top: 15px;
+    display: block;
+}
+
+.related_posts_container .content_container {
+    width: 100%;
+}
+
+.related_posts_container .publisher_img {
+    width: 15px;
+    height: 15px;
+    margin-left: 7px;
+}
+
+.related_posts_container .publisher_name {
+    margin-top: 0;
+    margin-left: 3px !important;
+    font-size: 10px;
+}
+
+.related_posts_container .published_time {
+    float: left;
+    margin-left: 5px;
+    margin-top: 0px;
+    font-size: 12px;
+
+}
+
+.related_posts_container .publisher_time {
+    margin-left: 10px;
+}
+ 
+.related_posts_container .upvote.active, 
+.related_posts_container .downvote.active {
+    font-size: 1.4em;
+}
+
+.related_posts_container .post_stat {
+    font-size: .9em;
 }
 
 .logo-typography {
@@ -233,8 +307,8 @@ span.upvote, span.downvote {
     margin: auto;
     min-height: 100%;
     min-width: 100%;*/
-	width: 100px;
-	height: 100px;
+	width: 100%;
+	height: 100%;
 	margin-right: 10px;
 	background-position: center center;
 	background-repeat: no-repeat;
