@@ -28,6 +28,7 @@ group :doc do
 	gem 'sdoc', '~> 0.4.0'
 end
 
+gem 'sprockets_better_errors'
 gem 'bootstrap-sass', '~> 3.3.6'
 gem 'bower-rails', "~> 0.10.0"
 gem 'angular_rails_csrf'
@@ -62,4 +63,3 @@ end
 group :production do
   gem 'rails_12factor'
 end
-
