@@ -1,5 +1,5 @@
 .rspec
-/.bundle
+.bundle/config
 /log
 /tmp
 /db/*.sqlite3

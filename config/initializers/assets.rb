@@ -4,6 +4,14 @@
 Rails.application.config.assets.version = '1.0'
 Rails.application.config.assets.precompile += [
 	'main.css',
+	'auth.js',
+	'main.js',
+	'topbar.js',
+	'app.js',
+	'controllers.js',
+	'filters,js',
+	'services.js',
+	'application.scss'
 ]
 
 # Add additional assets to the asset load path
