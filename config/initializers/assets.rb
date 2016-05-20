@@ -11,7 +11,6 @@ Rails.application.config.assets.precompile += [
 	'controllers.js',
 	'filters,js',
 	'services.js',
-	'application.scss'
 ]
 
 # Add additional assets to the asset load path
