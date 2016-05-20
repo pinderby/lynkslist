@@ -56,6 +56,8 @@ angular.module('lynkslistApp')
             PostsService.incrementViews(post);
             document.getElementById("myNav").style.left = "10%";
             document.getElementById("iframe-btn-container").style.left = "10%";
+            $('.content_title').removeClass('active');
+            $('.content_title_' + post.id).addClass('active');
         }
 
         $scope.closeNav = function() {
