@@ -5,8 +5,12 @@ class PostsController < ApplicationController
 
 	def index
 		@posts = Post.all.sort_by(&:published_at).reverse
-		# @posts = Post.order(published_at: :desc).first(30)
 		respond_with @posts.to_json(include: [:source, :votes])
+	end
+
+	def show_page
+		@posts = Post.page(params[:page]).per(50)
+		render json: @posts.to_json(include: [:source, :votes])
 	end
 
 	def create

@@ -4,13 +4,24 @@ angular.module('lynkslistApp')
 
         $scope.orderProp = '-published_at';
         $scope.posts = PostsService.posts;
+        $scope.currentPage = 1;
+        $scope.totalItems = 1000;
+
+        if($('#route').data("page") != "") {
+            $scope.currentPage = $('#route').data("page");
+        }
 
         if($('#route').data("model") == "list") {
             var name = $('#route').data("name");
             PostsService.getListPosts(name);
         } else {
-            PostsService.getAll();
+            PostsService.getAll($scope.currentPage);
         }
+
+        $scope.$watch('currentPage', function(newValue, oldValue) {
+            console.log($scope.currentPage);
+            PostsService.getAll(newValue);
+        });
 
         Auth.currentUser().then(function (user){
             $http.get('/users/' + user.id + '.json').success( function(response) {

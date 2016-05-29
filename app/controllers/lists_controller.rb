@@ -11,6 +11,7 @@ class ListsController < ApplicationController
 	end
 
 	def show_posts
+		# TODO --DM-- implement pagination
 		@list = List.find_by name: params[:name]
 		@posts = @list.posts.sort_by(&:published_at).reverse.uniq
 

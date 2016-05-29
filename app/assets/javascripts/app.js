@@ -6,6 +6,7 @@ var lynkslistApp = angular.module('lynkslistApp', [
 	'ui.router',
 	'templates',
 	'Devise',
+	'ui.bootstrap',
 	'lynkslistServices'
 ]);
 

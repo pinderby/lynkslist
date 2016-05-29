@@ -19,6 +19,7 @@
     "angular-ui-router": "^0.2.18",
     "AngularDevise": "angular-devise#^1.3.0",
     "clipboard": "^1.5.10",
-    "moment": "^2.13.0"
+    "moment": "^2.13.0",
+    "angular-bootstrap": "^1.3.3"
   }
 }

@@ -40,8 +40,8 @@ lynkslistServices.factory('PostsService', ['$http', function($http){
     return 0;
   }
 
-  p.getAll = function() {
-    return $http.get('/posts.json').success(function(data){
+  p.getAll = function(page) {
+    return $http.get('/posts/all/'+page).success(function(data){
       p.addRelativeTimes(data);
       angular.copy(data, p.posts);
     });

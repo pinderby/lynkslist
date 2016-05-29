@@ -7,6 +7,9 @@
     <option value="-published_at">Most recent</option>
   </select>
 </div>
+<div class="container col-md-12">
+  <uib-pager total-items="totalItems" ng-model="currentPage"></uib-pager>
+</div>
 <div class="content_feed_container" ng-repeat="post in posts | orderBy:orderProp">
   <div class="post_container container">
     <div class="votes_container">

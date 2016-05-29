@@ -16,6 +16,7 @@
 //= require angular-devise
 //= require angular-rails-templates
 //= require angular-ui-router
+//= require angular-bootstrap
 //= require turbolinks
 //= require bootstrap-sprockets
 //= require clipboard

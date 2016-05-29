@@ -7,6 +7,7 @@ Rails.application.routes.draw do
 
   get '/refresh', to: 'routes#refresh'
 
+  get '/posts/all/:page' => 'posts#show_page'
   resources :posts do
     member do
       put '/increment_views' => 'posts#increment_views'

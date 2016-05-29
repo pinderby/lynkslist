@@ -5,6 +5,7 @@ class Post < ActiveRecord::Base
 	has_many :voting_users,  -> { uniq }, source: :user, :through => :votes
 	has_many :votes
 	belongs_to :source
+	default_scope -> { order('published_at DESC') }
 
 	def self.eliminate_duplicates
 		# find all models and group them on keys which should be common
