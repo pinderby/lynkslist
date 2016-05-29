@@ -23,6 +23,9 @@
       <button class="btn btn-clipboard btn-xs btn-default" data-clipboard-text="{{post.canonical_url}}">
           <span class="glyphicon glyphicon-copy" aria-hidden="true" style=""></span>
       </button>
+      <a href="{{post.canonical_url}}" class="btn btn-postlink btn-xs btn-default">
+          <span class="glyphicon glyphicon-link" aria-hidden="true" style=""></span>
+      </a>
       </br>
       <div class="publisher_container">
         <img class="publisher_img" ng-src="{{post.source.profile_url}}">

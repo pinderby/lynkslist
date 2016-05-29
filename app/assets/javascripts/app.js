@@ -18,12 +18,7 @@ lynkslistApp.config([
 			.state('main', {
 				url: '/main',
 				templateUrl: 'main/_main.html',
-				controller: 'ContentCtrl',
-				resolve: {
-					postPromise: ['PostsService', function(PostsService){
-						return PostsService.getAll();
-					}]
-				}
+				controller: 'ContentCtrl'
 			})
 			.state('saved_posts', {
 				url: '/saved_posts',

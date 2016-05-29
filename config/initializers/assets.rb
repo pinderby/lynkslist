@@ -10,7 +10,7 @@ Rails.application.config.assets.precompile += [
 	'app.js',
 	'controllers.js',
 	'filters,js',
-	'services.js',
+	'services.js'
 ]
 
 # Add additional assets to the asset load path

@@ -241,11 +241,12 @@ body {
     visibility: hidden;
 }
 
-.post_container:hover .btn-clipboard {
+.post_container:hover .btn-clipboard, 
+.post_container:hover .btn-postlink {
     display: inline-block !important;
 }
 
-.btn-clipboard {
+.btn-clipboard, .btn-postlink {
     display: none !important;
 }
 
@@ -339,6 +340,7 @@ span.upvote, span.downvote {
 
 .content_title {
 	display: inline-block;
+    min-height: 22px;
 }
 
 .content_summary {
@@ -346,7 +348,7 @@ span.upvote, span.downvote {
 }
 
 .publisher_container {
-    padding-top: 5px;
+    padding-top: 2px;
 	width: 100%;
     display: block;
     float: left;

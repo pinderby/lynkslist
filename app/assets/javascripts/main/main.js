@@ -3,25 +3,13 @@ angular.module('lynkslistApp')
             function($scope, $http, $state, $stateParams, Auth, PostsService) {
 
         $scope.orderProp = '-published_at';
+        $scope.posts = PostsService.posts;
 
         if($('#route').data("model") == "list") {
             var name = $('#route').data("name");
-            $scope.posts = PostsService.getListPosts(name);
+            PostsService.getListPosts(name);
         } else {
-            $scope.posts = PostsService.posts;
-        }
-
-        for (var i = 0; i < $scope.posts.length; i++) {
-            // Calculate relative publish time for all posts
-            $scope.posts[i].published_relative = 
-                moment($scope.posts[i].published_at).fromNow();
-
-            // Calculate vote points for all posts
-            if ($scope.posts[i].votes == null) return;
-            $scope.posts[i].points = 0;
-            for (var i2 = 0; i2 < $scope.posts[i].votes.length; i2++) {
-                $scope.posts[i].points += $scope.posts[i].votes[i2].value;
-            }
+            PostsService.getAll();
         }
 
         Auth.currentUser().then(function (user){

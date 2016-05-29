@@ -42,17 +42,30 @@ lynkslistServices.factory('PostsService', ['$http', function($http){
 
   p.getAll = function() {
     return $http.get('/posts.json').success(function(data){
+      p.addRelativeTimes(data);
       angular.copy(data, p.posts);
+    });
+  };
+
+  p.getListPosts = function(listName) {
+    return $http.get('/lists/'+listName+'/posts').success(function(data){
+      p.addRelativeTimes(data);
+      angular.copy(data, p.posts);
+    });
+  };
+
+  p.getSavedPosts = function(userId) {
+    return $http.get('/users/' + userId + '/saved_posts.json').success( function(response) {
+      angular.copy(response, p.posts);
+      angular.copy(response, p.saved_posts);
     });
   };
 
   p.refresh = function() {
     // TODO --DM-- Add loading overlay while it's loading
-    console.log("refresh");
     return $http.get('/refresh').then(function successCallback(response) {
       // this callback will be called asynchronously
       // when the response is available
-      console.log(response);
       for (var i = 0; i < response.length; i++) {
         // Calculate relative publish time for all posts
         response[i].published_relative = 
@@ -67,23 +80,9 @@ lynkslistServices.factory('PostsService', ['$http', function($http){
         }
       }
       angular.copy(response.data, p.posts);
-      console.log(p.posts);
     }, function errorCallback(response) {
       // called asynchronously if an error occurs
       // or server returns response with an error status.
-    });
-  };
-
-  p.getListPosts = function(name) {
-    return $http.get('/lists/' + name + "/posts").success( function(data) {
-      angular.copy(data, p.posts);
-    });
-  };
-
-  p.getSavedPosts = function(userId) {
-    return $http.get('/users/' + userId + '/saved_posts.json').success( function(response) {
-      angular.copy(response, p.posts);
-      angular.copy(response, p.saved_posts);
     });
   };
 
@@ -324,5 +323,26 @@ lynkslistServices.factory('PostsService', ['$http', function($http){
     });
   };
 
+  p.addRelativeTimes = function(posts) {
+    for (var i = 0; i < posts.length; i++) {
+      // Calculate relative publish time for all posts
+      posts[i].published_relative = 
+          moment(posts[i].published_at).fromNow();
+
+      // Add totaled votes
+      p.addVotes(posts[i]);
+    }
+  };
+
+  p.addVotes = function(post) {
+      // Calculate vote points for post
+      if (post.votes == null) return;
+      post.points = 0;
+      for (var i = 0; i < post.votes.length; i++) {
+          post.points += post.votes[i].value;
+      }
+  };
+
   return p;
-}])
+}]);
+
