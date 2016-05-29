@@ -36,11 +36,11 @@ angular.module('lynkslistApp')
 
                 // Highlight all votes
                 PostsService.voted_posts = $scope.user.voted_posts;
-                for (var i = 0; i < $scope.user.voted_posts.length; i++) { 
+                for (var i = 0; i < $scope.user.votes.length; i++) { 
                     if ($scope.user.votes[i].value == 1) {
-                        $('.upvote_'+$scope.user.voted_posts[i].id).addClass("active");
+                        $('.upvote_'+$scope.user.votes[i].post_id).addClass("active");
                     } else if ($scope.user.votes[i].value == -1) {
-                        $('.downvote_'+$scope.user.voted_posts[i].id).addClass("active");
+                        $('.downvote_'+$scope.user.votes[i].post_id).addClass("active");
                     } else {
                         console.log('Vote error: ' + $scope.user.votes[i].value);
                     }
@@ -67,10 +67,7 @@ angular.module('lynkslistApp')
         }
 
         $scope.refresh = function() {
-            // TODO --DM-- Add loading overlay while it's loading
-            $http.get('/refresh').success( function(response) {
-                $scope.posts = response;
-            });
+            PostsService.refresh();
         }
 
         $scope.showSavedPosts = function() {

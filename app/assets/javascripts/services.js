@@ -9,7 +9,6 @@ lynkslistServices.factory('PostsService', ['$http', function($http){
     posts: [],
     saved_posts: [],
     voted_posts: [],
-    currentVote: 10,
     saving: false,
     voting: false
   };
@@ -47,6 +46,34 @@ lynkslistServices.factory('PostsService', ['$http', function($http){
     });
   };
 
+  p.refresh = function() {
+    // TODO --DM-- Add loading overlay while it's loading
+    console.log("refresh");
+    return $http.get('/refresh').then(function successCallback(response) {
+      // this callback will be called asynchronously
+      // when the response is available
+      console.log(response);
+      for (var i = 0; i < response.length; i++) {
+        // Calculate relative publish time for all posts
+        response[i].published_relative = 
+            moment(response[i].published_at).fromNow();
+
+        // Calculate vote points for all posts
+        if (response[i].votes != null) {
+          response[i].points = 0;
+          for (var i2 = 0; i2 < response[i].votes.length; i2++) {
+              response[i].points += response[i].votes[i2].value;
+          }
+        }
+      }
+      angular.copy(response.data, p.posts);
+      console.log(p.posts);
+    }, function errorCallback(response) {
+      // called asynchronously if an error occurs
+      // or server returns response with an error status.
+    });
+  };
+
   p.getListPosts = function(name) {
     return $http.get('/lists/' + name + "/posts").success( function(data) {
       angular.copy(data, p.posts);
@@ -63,10 +90,10 @@ lynkslistServices.factory('PostsService', ['$http', function($http){
   // Upvote post
   p.upvote = function(votes, post) {
     // Check whether to use local vote value or calculate
-    if (p.currentVote == 10) {
-      var voteValue = p.getVoteValue(votes, post);
+    if (post.hasOwnProperty("currentVote")) {
+      var voteValue = post.currentVote;
     } else { 
-      var voteValue = p.currentVote;
+      var voteValue = p.getVoteValue(votes, post);
     }
 
     // Determine pathway based on vote value
@@ -108,7 +135,7 @@ lynkslistServices.factory('PostsService', ['$http', function($http){
         p.voting = false;
 
         // Set current vote
-        p.currentVote = 1;
+        post.currentVote = 1;
     });
   };
 
@@ -138,17 +165,17 @@ lynkslistServices.factory('PostsService', ['$http', function($http){
         p.voting = false;
 
         // Set current vote
-        p.currentVote = 0;
+        post.currentVote = 0;
     });
   };
 
   // Downvote post
   p.downvote = function(votes, post) {
     // Check whether to use local vote value or calculate
-    if (p.currentVote == 10) {
-      var voteValue = p.getVoteValue(votes, post);
+    if (post.hasOwnProperty("currentVote")) {
+      var voteValue = post.currentVote;
     } else { 
-      var voteValue = p.currentVote;
+      var voteValue = p.getVoteValue(votes, post);
     }
 
     // Determine pathway based on vote value
@@ -190,7 +217,7 @@ lynkslistServices.factory('PostsService', ['$http', function($http){
         p.voting = false;
 
         // Set current vote
-        p.currentVote = -1;
+        post.currentVote = -1;
     });
   };
 
@@ -220,7 +247,7 @@ lynkslistServices.factory('PostsService', ['$http', function($http){
         p.voting = false;
 
         // Set current vote
-        p.currentVote = 0;
+        post.currentVote = 0;
     });
   };
 
@@ -250,8 +277,10 @@ lynkslistServices.factory('PostsService', ['$http', function($http){
         $('.save_stat_'+post.id).addClass("active");
 
         // Update save count
-        var saveCount = $('.save_count_'+post.id).text();
-        $('.save_count_'+post.id).text(Number(saveCount)+1);
+        $('.save_count_'+post.id).each(function(index) {
+          var saveCount = $(this).text();
+          $(this).text(Number(saveCount)-1);
+        });
 
         console.log(data);
 
@@ -277,8 +306,10 @@ lynkslistServices.factory('PostsService', ['$http', function($http){
         $('.save_stat_'+post.id).removeClass("active");
 
         // Update save count
-        var saveCount = $('.save_count_'+post.id).text();
-        $('.save_count_'+post.id).text(Number(saveCount)-1);
+        $('.save_count_'+post.id).each(function(index) {
+          var saveCount = $(this).text();
+          $(this).text(Number(saveCount)-1);
+        });
         
         console.log(data);
         
