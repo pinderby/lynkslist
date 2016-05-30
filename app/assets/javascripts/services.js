@@ -52,6 +52,7 @@ lynkslistServices.factory('PostsService', ['$http', 'Auth', function($http, Auth
   // };
 
   p.getAll = function(page) {
+    console.log('/posts/page/'+page+'?sort='+p.sort+'&timescope='+p.timescope);
     return $http.get(
       '/posts/page/'+page+
       '?sort='+p.sort+
@@ -70,9 +71,6 @@ lynkslistServices.factory('PostsService', ['$http', 'Auth', function($http, Auth
     console.log(p.sort);
     console.log(p.timescope);
     console.log(page);
-    console.log('/posts/page/'+page+
-      '?sort='+p.sort+
-      '&timescope='+p.timescope);
     if(p.listName != '') {
       p.getListPosts(page);
     } else {
@@ -81,6 +79,7 @@ lynkslistServices.factory('PostsService', ['$http', 'Auth', function($http, Auth
   };
 
   p.getListPosts = function(page) {
+    console.log('/lists/'+p.listName+'/posts/page/'+page+'?sort='+p.sort+'&timescope='+p.timescope);
     return $http.get(
       '/lists/'+p.listName+
       '/posts/page/'+page+
@@ -99,13 +98,12 @@ lynkslistServices.factory('PostsService', ['$http', 'Auth', function($http, Auth
     });
   };
 
-  p.refreshPosts = function() {
+  p.refreshPosts = function(page) {
     // TODO --DM-- Add loading overlay while it's loading
     return $http.get('/refresh').then(function successCallback(response) {
       // this callback will be called asynchronously
       // when the response is available
-      p.addRelativeTimes(response.data);
-      angular.copy(response.data, p.posts);
+      p.sortPosts(page);
     }, function errorCallback(response) {
       // called asynchronously if an error occurs
       // or server returns response with an error status.
@@ -335,8 +333,6 @@ lynkslistServices.factory('PostsService', ['$http', 'Auth', function($http, Auth
           var saveCount = $(this).text();
           $(this).text(Number(saveCount)-1);
         });
-        
-        console.log(data);
         
         // Reenable button
         p.saving = false;

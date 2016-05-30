@@ -21,7 +21,7 @@ angular.module('lynkslistApp')
 
         $scope.$watch('currentPage', function(newValue, oldValue) {
             console.log("currentPage: " + $scope.currentPage);
-            PostsService.getAll(newValue);
+            PostsService.sortPosts(newValue);
         });
 
         $scope.updateSort = function() {
@@ -64,7 +64,7 @@ angular.module('lynkslistApp')
         }
 
         $scope.refresh = function() {
-            PostsService.refreshPosts();
+            PostsService.refreshPosts($scope.currentPage);
         }
 
         $scope.showSavedPosts = function() {
