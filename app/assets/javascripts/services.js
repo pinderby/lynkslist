@@ -10,7 +10,10 @@ lynkslistServices.factory('PostsService', ['$http', function($http){
     saved_posts: [],
     voted_posts: [],
     saving: false,
-    voting: false
+    voting: false,
+    listName: '',
+    sort: 'recent',
+    timescope: 7
   };
 
   p.containsPost = function(a, obj) {
@@ -40,15 +43,48 @@ lynkslistServices.factory('PostsService', ['$http', function($http){
     return 0;
   }
 
+  // p.getAll = function(page) {
+  //   return $http.get('/posts/page/'+page).success(function(data){
+  //     p.addRelativeTimes(data);
+  //     angular.copy(data, p.posts);
+  //   });
+  // };
+
   p.getAll = function(page) {
-    return $http.get('/posts/all/'+page).success(function(data){
+    return $http.get(
+      '/posts/page/'+page+
+      '?sort='+p.sort+
+      '&timescope='+p.timescope).success(function(data){
+      
       p.addRelativeTimes(data);
       angular.copy(data, p.posts);
     });
   };
 
-  p.getListPosts = function(listName) {
-    return $http.get('/lists/'+listName+'/posts').success(function(data){
+  p.sortPosts = function(page) {
+    console.log(p.listName);
+    console.log("p.listName == ''");
+    console.log(p.listName == '');
+    console.log(p.sort);
+    console.log(p.timescope);
+    console.log(page);
+    console.log('/posts/page/'+page+
+      '?sort='+p.sort+
+      '&timescope='+p.timescope);
+    if(p.listName != '') {
+      p.getListPosts(page);
+    } else {
+      p.getAll(page);
+    }
+  };
+
+  p.getListPosts = function(page) {
+    return $http.get(
+      '/lists/'+p.listName+
+      '/posts/page/'+page+
+      '?sort='+p.sort+
+      '&timescope='+p.timescope).success(function(data){
+      
       p.addRelativeTimes(data);
       angular.copy(data, p.posts);
     });
@@ -61,24 +97,12 @@ lynkslistServices.factory('PostsService', ['$http', function($http){
     });
   };
 
-  p.refresh = function() {
+  p.refreshPosts = function() {
     // TODO --DM-- Add loading overlay while it's loading
     return $http.get('/refresh').then(function successCallback(response) {
       // this callback will be called asynchronously
       // when the response is available
-      for (var i = 0; i < response.length; i++) {
-        // Calculate relative publish time for all posts
-        response[i].published_relative = 
-            moment(response[i].published_at).fromNow();
-
-        // Calculate vote points for all posts
-        if (response[i].votes != null) {
-          response[i].points = 0;
-          for (var i2 = 0; i2 < response[i].votes.length; i2++) {
-              response[i].points += response[i].votes[i2].value;
-          }
-        }
-      }
+      p.addRelativeTimes(response.data);
       angular.copy(response.data, p.posts);
     }, function errorCallback(response) {
       // called asynchronously if an error occurs
@@ -278,7 +302,7 @@ lynkslistServices.factory('PostsService', ['$http', function($http){
         // Update save count
         $('.save_count_'+post.id).each(function(index) {
           var saveCount = $(this).text();
-          $(this).text(Number(saveCount)-1);
+          $(this).text(Number(saveCount)+1);
         });
 
         console.log(data);
@@ -317,30 +341,12 @@ lynkslistServices.factory('PostsService', ['$http', function($http){
       });
   };
 
-  p.refreshPosts = function() {
-    return $http.get('/refresh').success(function(data){
-      angular.copy(data, p.posts);
-    });
-  };
-
   p.addRelativeTimes = function(posts) {
     for (var i = 0; i < posts.length; i++) {
       // Calculate relative publish time for all posts
       posts[i].published_relative = 
           moment(posts[i].published_at).fromNow();
-
-      // Add totaled votes
-      p.addVotes(posts[i]);
     }
-  };
-
-  p.addVotes = function(post) {
-      // Calculate vote points for post
-      if (post.votes == null) return;
-      post.points = 0;
-      for (var i = 0; i < post.votes.length; i++) {
-          post.points += post.votes[i].value;
-      }
   };
 
   return p;

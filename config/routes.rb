@@ -7,7 +7,7 @@ Rails.application.routes.draw do
 
   get '/refresh', to: 'routes#refresh'
 
-  get '/posts/all/:page' => 'posts#show_page'
+  get '/posts/page/:page' => 'posts#sort_posts'
   resources :posts do
     member do
       put '/increment_views' => 'posts#increment_views'
@@ -27,6 +27,7 @@ Rails.application.routes.draw do
   end
 
   get '/lists/:name/posts', to: 'lists#show_posts'
+  get '/lists/:name/posts/page/:page', to: 'lists#sort_posts'
 
   scope 'l' do
     get ':name' => 'routes#show_list'

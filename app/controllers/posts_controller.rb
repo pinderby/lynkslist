@@ -9,8 +9,26 @@ class PostsController < ApplicationController
 	end
 
 	def show_page
-		@posts = Post.page(params[:page]).per(50)
+		puts params[:sort]
+		@posts = Post.page(params[:page])
 		render json: @posts.to_json(include: [:source, :votes])
+	end
+
+	def sort_posts
+		timescope = params[:timescope].to_i
+		case params[:sort]
+		when "recent"
+			@posts = Post.page(params[:page])
+			render json: @posts.to_json(include: [:source, :votes])
+		when "upvoted"
+			@posts = Post.where(published_at: (Time.now - timescope.day)..Time.now).reorder(points: :desc).page(params[:page])
+			render json: @posts.to_json(include: [:source, :votes])
+		when "viewed"
+			@posts = Post.where(published_at: (Time.now - timescope.day)..Time.now).reorder(views: :desc).page(params[:page])
+			render json: @posts.to_json(include: [:source, :votes])
+		else
+			render :bad_request
+		end
 	end
 
 	def create
@@ -34,6 +52,8 @@ class PostsController < ApplicationController
 	  	current_user.voted_posts.delete(@post)
 	  	current_user.votes.create(post_id: @post.id, value: 1)
 	  	current_user.voted_posts.uniq!
+	  	# Recalculate points
+	  	@post.calc_points()
 
 	  	render json: current_user.voted_posts, status: :ok
 	  else
@@ -46,6 +66,8 @@ class PostsController < ApplicationController
 	  @post = Post.find(params[:id])
 	  if current_user
 	  	current_user.voted_posts.delete(@post)
+	  	# Recalculate points
+	  	@post.calc_points()
 
 	  	render json: current_user.voted_posts, status: :ok
 	  else
@@ -60,6 +82,8 @@ class PostsController < ApplicationController
 	  	current_user.voted_posts.delete(@post)
 	  	current_user.votes.create(post_id: @post.id, value: -1)
 	  	current_user.voted_posts.uniq!
+	  	# Recalculate points
+	  	@post.calc_points()
 
 	  	render json: current_user.voted_posts, status: :ok
 	  else
@@ -72,6 +96,8 @@ class PostsController < ApplicationController
 	  @post = Post.find(params[:id])
 	  if current_user
 	  	current_user.voted_posts.delete(@post)
+	  	# Recalculate points
+	  	@post.calc_points()
 
 	  	render json: current_user.voted_posts, status: :ok
 	  else
@@ -109,4 +135,5 @@ class PostsController < ApplicationController
 	def post_params
 	  params.require(:post).permit(:link, :title)
 	end
+
 end

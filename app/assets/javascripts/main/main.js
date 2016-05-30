@@ -3,6 +3,7 @@ angular.module('lynkslistApp')
             function($scope, $http, $state, $stateParams, Auth, PostsService) {
 
         $scope.orderProp = '-published_at';
+        $scope.timescope = 7;
         $scope.posts = PostsService.posts;
         $scope.currentPage = 1;
         $scope.totalItems = 1000;
@@ -13,13 +14,13 @@ angular.module('lynkslistApp')
 
         if($('#route').data("model") == "list") {
             var name = $('#route').data("name");
-            PostsService.getListPosts(name);
-        } else {
-            PostsService.getAll($scope.currentPage);
+            PostsService.listName = name;
         }
 
+        PostsService.sortPosts($scope.currentPage);
+
         $scope.$watch('currentPage', function(newValue, oldValue) {
-            console.log($scope.currentPage);
+            console.log("currentPage: " + $scope.currentPage);
             PostsService.getAll(newValue);
         });
 
@@ -47,7 +48,28 @@ angular.module('lynkslistApp')
             });
         });
 
+        $scope.updateSort = function() {
+            switch($scope.orderProp) {
+                case '-published_at':
+                    PostsService.sort = 'recent';
+                    break;
+                case '-views':
+                    PostsService.sort = 'viewed';
+                    break;
+                case '-points':
+                    PostsService.sort = 'upvoted';
+                    break;
+                default:
+                    PostsService.sort = 'recent';
+            }
 
+            PostsService.sortPosts($scope.currentPage);
+        }
+
+        $scope.updateTimescope = function() {
+            PostsService.timescope = $scope.timescope;
+            PostsService.sortPosts($scope.currentPage);
+        }
 
         $scope.openLink = function(post) {
             $scope.articleUrl = post.canonical_url;
@@ -66,7 +88,7 @@ angular.module('lynkslistApp')
         }
 
         $scope.refresh = function() {
-            PostsService.refresh();
+            PostsService.refreshPosts();
         }
 
         $scope.showSavedPosts = function() {

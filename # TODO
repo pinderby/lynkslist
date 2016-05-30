@@ -1,6 +1,8 @@
 # TODO List
 
-# Pagination for posts
+# Rotating pagination for posts
+# Pagination sorting (time scoping), sort routing
+# Pagination routing
 # pagination for lists
 
 # Tags, parsing titles for basic tags

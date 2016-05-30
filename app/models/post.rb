@@ -7,6 +7,15 @@ class Post < ActiveRecord::Base
 	belongs_to :source
 	default_scope -> { order('published_at DESC') }
 
+	def calc_points
+		# add up all points
+		self.points = 0
+		self.votes.each do |v|
+			self.points += v.value
+		end
+		self.save
+	end
+
 	def self.eliminate_duplicates
 		# find all models and group them on keys which should be common
 		grouped = all.group_by{|post| [post.title] }
@@ -18,4 +27,5 @@ class Post < ActiveRecord::Base
 			duplicates.each{|double| double.destroy} # duplicates can now be destroyed
 		end
 	end
+
 end

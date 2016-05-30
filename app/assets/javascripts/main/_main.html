@@ -1,10 +1,15 @@
 <div class="container col-md-12">
   <button type="button" class="btn btn-primary btn-lg" ng-click="refresh()"><span class="glyphicon glyphicon-refresh" aria-hidden="true" style="margin-right: 3px;"></span></button>
   Sort by:
-  <select class="form-control sort-select" ng-model="orderProp">
+  <select class="form-control sort-select" ng-model="orderProp" ng-change="updateSort()">
     <option value="-points">Most upvoted</option>
     <option value="-views">Most viewed</option>
     <option value="-published_at">Most recent</option>
+  </select>
+  <select class="form-control timescope-select" ng-model="timescope" ng-change="updateTimescope()" ng-show="orderProp=='-points' || orderProp=='-views'">
+    <option value="1">Today</option>
+    <option value="7">This Week</option>
+    <option value="30">This Month</option>
   </select>
 </div>
 <div class="container col-md-12">
