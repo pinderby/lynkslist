@@ -24,30 +24,6 @@ angular.module('lynkslistApp')
             PostsService.getAll(newValue);
         });
 
-        Auth.currentUser().then(function (user){
-            $http.get('/users/' + user.id + '.json').success( function(response) {
-                $scope.user = response;
-
-                // Highlight all saved posts
-                PostsService.saved_posts = $scope.user.saved_posts;
-                for (var i = 0; i < $scope.user.saved_posts.length; i++) {                    
-                    $('.save_stat_'+$scope.user.saved_posts[i].id).addClass('active');
-                }
-
-                // Highlight all votes
-                PostsService.voted_posts = $scope.user.voted_posts;
-                for (var i = 0; i < $scope.user.votes.length; i++) { 
-                    if ($scope.user.votes[i].value == 1) {
-                        $('.upvote_'+$scope.user.votes[i].post_id).addClass("active");
-                    } else if ($scope.user.votes[i].value == -1) {
-                        $('.downvote_'+$scope.user.votes[i].post_id).addClass("active");
-                    } else {
-                        console.log('Vote error: ' + $scope.user.votes[i].value);
-                    }
-                }
-            });
-        });
-
         $scope.updateSort = function() {
             switch($scope.orderProp) {
                 case '-published_at':
@@ -113,9 +89,9 @@ angular.module('lynkslistApp')
         $scope.savePost = function($event, post) {
             if (Auth.isAuthenticated()) {
                 if (PostsService.isSaved(post)) {
-                    PostsService.unsavePost($event, post, $scope.user);
+                    PostsService.unsavePost($event, post);
                 } else {
-                    PostsService.savePost($event, post, $scope.user);
+                    PostsService.savePost($event, post);
                 }
             }
         };

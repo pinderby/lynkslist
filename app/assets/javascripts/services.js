@@ -4,8 +4,9 @@
 
 var lynkslistServices = angular.module('lynkslistServices', []);
 
-lynkslistServices.factory('PostsService', ['$http', function($http){
+lynkslistServices.factory('PostsService', ['$http', 'Auth', function($http, Auth){
   var p = {
+    user: {},
     posts: [],
     saved_posts: [],
     voted_posts: [],
@@ -58,6 +59,7 @@ lynkslistServices.factory('PostsService', ['$http', function($http){
       
       p.addRelativeTimes(data);
       angular.copy(data, p.posts);
+      p.checkForUser();
     });
   };
 
@@ -346,6 +348,40 @@ lynkslistServices.factory('PostsService', ['$http', function($http){
       // Calculate relative publish time for all posts
       posts[i].published_relative = 
           moment(posts[i].published_at).fromNow();
+    }
+  };
+
+  p.checkForUser = function() {
+    if (jQuery.isEmptyObject(p.user)) {
+      // If p.user is undefined, get user from server
+      Auth.currentUser().then(function (user){
+        $http.get('/users/' + user.id + '.json').success( function(response) {
+            p.user = response;
+            p.highlightPosts();
+        });
+      });
+    } else {
+      p.highlightPosts();
+    }
+  };
+
+  p.highlightPosts = function() {
+    // Highlight all saved posts
+    p.saved_posts = p.user.saved_posts;
+    for (var i = 0; i < p.user.saved_posts.length; i++) {                    
+        $('.save_stat_'+p.user.saved_posts[i].id).addClass('active');
+    }
+
+    // Highlight all votes
+    p.voted_posts = p.user.voted_posts;
+    for (var i = 0; i < p.user.votes.length; i++) { 
+        if (p.user.votes[i].value == 1) {
+            $('.upvote_'+p.user.votes[i].post_id).addClass("active");
+        } else if (p.user.votes[i].value == -1) {
+            $('.downvote_'+p.user.votes[i].post_id).addClass("active");
+        } else {
+            console.log('Vote error: ' + p.user.votes[i].value);
+        }
     }
   };
 
