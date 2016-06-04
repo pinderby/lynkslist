@@ -237,6 +237,11 @@ body {
     width: 150px !important;
 }
 
+.timescope-select {
+    display: inline !important;
+    width: auto !important;
+}
+
 #route {
     visibility: hidden;
 }

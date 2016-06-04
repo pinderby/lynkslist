@@ -7,7 +7,8 @@ var lynkslistApp = angular.module('lynkslistApp', [
 	'templates',
 	'Devise',
 	'ui.bootstrap',
-	'lynkslistServices'
+	'lynkslistServices',
+	'lynkslistDirectives'
 ]);
 
 lynkslistApp.config([
@@ -17,7 +18,12 @@ lynkslistApp.config([
 
 		$stateProvider
 			.state('main', {
-				url: '/main',
+				url: '/',
+				templateUrl: 'main/_main.html',
+				controller: 'ContentCtrl'
+			})
+			.state('main.page', {
+				url: '{page:int}',
 				templateUrl: 'main/_main.html',
 				controller: 'ContentCtrl'
 			})
@@ -54,6 +60,6 @@ lynkslistApp.config([
 				}]
 		    });
 
-		$urlRouterProvider.otherwise('main');
+		// $urlRouterProvider.otherwise('/');
 	}
 ]);

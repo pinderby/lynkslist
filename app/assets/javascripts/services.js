@@ -348,6 +348,8 @@ lynkslistServices.factory('PostsService', ['$http', 'Auth', function($http, Auth
   };
 
   p.checkForUser = function() {
+    console.log("checkForUser");
+    console.log("jQuery.isEmptyObject(p.user): "+jQuery.isEmptyObject(p.user));
     if (jQuery.isEmptyObject(p.user)) {
       // If p.user is undefined, get user from server
       Auth.currentUser().then(function (user){
@@ -357,12 +359,14 @@ lynkslistServices.factory('PostsService', ['$http', 'Auth', function($http, Auth
         });
       });
     } else {
-      p.highlightPosts();
+      // TODO --DM-- Execute after render
+      setTimeout(function () { p.highlightPosts(); }, 100);
     }
   };
 
   p.highlightPosts = function() {
     // Highlight all saved posts
+    console.log(p.user);
     p.saved_posts = p.user.saved_posts;
     for (var i = 0; i < p.user.saved_posts.length; i++) {                    
         $('.save_stat_'+p.user.saved_posts[i].id).addClass('active');
@@ -370,8 +374,10 @@ lynkslistServices.factory('PostsService', ['$http', 'Auth', function($http, Auth
 
     // Highlight all votes
     p.voted_posts = p.user.voted_posts;
+    console.log(p.voted_posts);
     for (var i = 0; i < p.user.votes.length; i++) { 
         if (p.user.votes[i].value == 1) {
+            console.log("$('.upvote_'"+p.user.votes[i].post_id+")");
             $('.upvote_'+p.user.votes[i].post_id).addClass("active");
         } else if (p.user.votes[i].value == -1) {
             $('.downvote_'+p.user.votes[i].post_id).addClass("active");

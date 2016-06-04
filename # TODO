@@ -1,10 +1,5 @@
 # TODO List
 
-# Rotating pagination for posts
-# Pagination sorting (time scoping), sort routing
-# Pagination routing
-# pagination for lists
-
 # Tags, parsing titles for basic tags
 # Search: Keyword, List, Source, Tag; Link source to search for source
 # Create a List
@@ -19,6 +14,7 @@
 
 # Deep Subscriptions
 
+# Rotating pagination for posts
 # Shares
 # Comments
 # LynksList top sorting
@@ -34,6 +30,10 @@ Mashable
 Feedage
 FeedReader
 
+# DONE:
+
+# Pagination routing
+# Pagination for lists
 
 
 list = List.new

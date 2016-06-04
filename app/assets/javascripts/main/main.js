@@ -2,11 +2,23 @@ angular.module('lynkslistApp')
     .controller('ContentCtrl', ['$scope', '$http', '$state', '$stateParams', 'Auth', 'PostsService', 
             function($scope, $http, $state, $stateParams, Auth, PostsService) {
 
+        // console.log($state);
+        // console.log("$state.params:");
+        // console.log($state.params);
+        // console.log("$stateParams:");
+        // console.log($stateParams);
+
         $scope.orderProp = '-published_at';
-        $scope.timescope = 7;
+        $scope.timescope = '7';
         $scope.posts = PostsService.posts;
-        $scope.currentPage = 1;
         $scope.totalItems = 1000;
+        
+        // Set page if in main.page state
+        if ($state.params.page == null) {
+            $scope.currentPage = 1;
+        } else {
+            $scope.currentPage = $state.params.page;
+        }
 
         if($('#route').data("page") != "") {
             $scope.currentPage = $('#route').data("page");
@@ -17,10 +29,9 @@ angular.module('lynkslistApp')
             PostsService.listName = name;
         }
 
-        PostsService.sortPosts($scope.currentPage);
-
         $scope.$watch('currentPage', function(newValue, oldValue) {
             console.log("currentPage: " + $scope.currentPage);
+            $state.go('main.page', {page: newValue});
             PostsService.sortPosts(newValue);
         });
 
