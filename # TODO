@@ -1,5 +1,6 @@
 # TODO List
 
+# Pagination/sort routing
 # Tags, parsing titles for basic tags
 # Search: Keyword, List, Source, Tag; Link source to search for source
 # Create a List
@@ -32,7 +33,6 @@ FeedReader
 
 # DONE:
 
-# Pagination routing
 # Pagination for lists
 
 
